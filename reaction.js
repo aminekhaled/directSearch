@@ -4,6 +4,7 @@ var webSites = document.getElementsByClassName('site'),
   textField = document.getElementById('textField'),
   searchButton = document.getElementsByClassName('search')[0],
   site_name = document.getElementsByClassName('site-name')[0],
+  text = document.getElementsByClassName('searchin')[0];
   site = '';
   var url = [
     "https://www.facebook.com/search/top?q=",
@@ -13,18 +14,25 @@ var webSites = document.getElementsByClassName('site'),
   ];
   for(var i = 0;i < webSites.length; i++) {
     webSites[i].onclick = function() {
-      document.getElementsByClassName('searchin')[0].style.visibility = "unset";
+      text.style.visibility = "unset";
       site = url[this.name];
-      site_name.innerHTML =  this.textContent;
+      site_name.innerHTML = this.textContent;
+      if(textField.disabled === true){ textField.disabled = false; }
     }
   }
+
+
   searchButton.onclick = function() {
-    if(textField.value == '' || site == ''){
-      document.write('operation failed');
+    if(textField.value == ''){
+      text.innerHTML = "<p style=\"color: #dd3d3d\" >choose a website Firstly</p>";
+      setTimeout(function() {
+        location.reload();
+      }, 1500)
     }else {
       window.location = site + textField.value;
     }
   }
+
 
 
 
